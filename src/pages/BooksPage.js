@@ -55,10 +55,10 @@ class BooksPage extends Component {
                 <tbody>
                 {bookStore.books.map((book, idx) => {
                     return (<tr key={idx}>
-                            <td>book.id</td>
-                            <td>book.title</td>
-                            <td>book.isbn</td>
-                            <td>book.description</td>
+                            <td>{book.id}</td>
+                            <td>{book.title}</td>
+                            <td>{book.isbn}</td>
+                            <td>{book.description}</td>
                             <td>
                                 <button id={book.id} onClick={this.onEdit = this.onEdit.bind(this)}>edit</button>
                                 <button id={book.id} onClick={this.onDelete = this.onDelete.bind(this)}>delete</button>
