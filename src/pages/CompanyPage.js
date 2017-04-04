@@ -8,13 +8,6 @@ import userData from "../stores/userStore";
 @ observer
 class CompanyPage extends Component {
 
-    componentWillMount() {
-        /*
-         This will fetch data each time you navigate to this route
-         Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
-         */
-        userData.getData();
-    }
 
     render() {
         return (
