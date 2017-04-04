@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Details from "./pages/Details";
+import BookForm from "./pages/BookForm";
 import Dashboard from "./pages/Dashboard";
 import auth from "./authorization/auth";
 
@@ -33,6 +34,8 @@ ReactDOM.render((
             <Route path="home" component={Home}/>
             <Route path="documentation" component={DocumentationPage}/>
             <Route path="products" component={ProductsPage}/>
+            <Route path="products/bookform" component={BookForm}/>
+            <Route path="products/bookform/:id" component={BookForm}/>
             <Route path="products/details/:id" component={Details} />
             <Route path="company" component={CompanyPage}/>
             <Route path="books" component={BooksPage}/>

@@ -8,22 +8,28 @@ class BookStore {
     constructor() {
         this._books.replace([
             {
+                id: 1,
                 title: "How to Learn JavaScript - Vol 1",
-                info: "Study hard"
+                isbn: "1234567891234",
+                description: "Study hard"
             }
             , {
-            title: "How to Learn ES6",
-                info: "Complete all exercises :-)"
+                id: 2,
+                title: "How to Learn ES6",
+                isbn: "1234567891234",
+                description: "Complete all exercises :-)"
             }
             , {
+                id: 3,
                 title: "How to Learn React",
-                info: "Complete all your CA's",
-                moreInfo: ""
+                isbn: "1234567891234",
+                description: "Complete all your CA's"
             }
             , {
+                id: 4,
                 title: "How to become a specialist in Computer Science - Vol 4",
-                info: "Don't drink beers, until Friday (after four)",
-                moreInfo: "5 Points = 5 beers ;-)"
+                isbn: "1234567891234",
+                description: "Don't drink beers, until Friday (after four)"
             }
         ])
     }
@@ -36,15 +42,15 @@ class BookStore {
         return this._books;
     }
 
-    @action addBook(book){
+    @action addBook(book) {
         this._books.push(book);
     }
 
-    @action editBook(book, i){
+    @action editBook(book, i) {
         this._books.splice(i, 1, book);
     }
 
-    @action deleteBook(i){
+    @action deleteBook(i) {
         this._books.slice(i, 1);
     }
 }

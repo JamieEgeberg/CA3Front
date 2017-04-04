@@ -1,21 +1,15 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
+
+import {hashHistory, Link} from "react-router"
 import userData from "../stores/userStore";
 import bookStore from '../stores/BookStore';
 
 @observer
 class BooksPage extends Component {
 
-    componentWillMount() {
-        /*
-         This will fetch data each time you navigate to this route
-         Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
-         */
-        userData.getData();
-    }
-
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             book: {
                 title: "",
@@ -25,38 +19,56 @@ class BooksPage extends Component {
         };
     }
 
-    handleChange = (event) => {
-        var book = this.state.book;
-        var id = event.target.id;
-        if (id === "title") {
-            book.title = event.target.value;
-        } else if (id === "info") {
-            book.info = event.target.value;
-        } else if (id === "moreInfo") {
-            book.moreInfo = event.target.value;
-        }
-        this.setState(book);
+
+    onAdd = (e) => {
+        e.preventDefault();
+        hashHistory.push('/products/bookform');
     };
 
-    saveBook = (event) => {
-        bookStore.addBook(this.state.book);
-        event.preventDefault();
+    onEdit = (e) => {
+        e.preventDefault();
+        hashHistory.push('/products/bookform/' + e.target.id);
+    };
+
+    onDelete =(e)=>{
+        e.preventDefault();
+        bookStore.books.forEach((book, i)=>{
+            if (Number(book.id) ===Number(e.target.id)){
+                bookStore.deleteBook(i);
+            }
+        })
     };
 
     render() {
         return <div>
             <h2>New Book</h2>
-            <form >
-                <input id="title" type="text" placeholder="Title" value={this.state.value}
-                       onChange={this.handleChange}/><br/>
-                <input id="info" type="text" placeholder="Info" value={this.state.value}
-                       onChange={this.handleChange}/><br/>
-                <input id="moreInfo" type="text" placeholder="More" value={this.state.value}
-                       onChange={this.handleChange}/><br/>
-                <button onClick={this.saveBook}>Add</button>
-                <p>{JSON.stringify(this.state.book)}</p>
-            </form>
-
+            <table>
+                <thead>
+                <th>ID</th>
+                <th>Title</th>
+                <th>ISBN</th>
+                <th>Description</th>
+                <th>
+                    <button onClick={this.onAdd}>+</button>
+                </th>
+                </thead>
+                <tbody>
+                {bookStore.books.map((book, idx) => {
+                    return (<tr key={idx}>
+                            <td>book.id</td>
+                            <td>book.title</td>
+                            <td>book.isbn</td>
+                            <td>book.description</td>
+                            <td>
+                                <button id={book.id} onClick={this.onEdit = this.onEdit.bind(this)}>edit</button>
+                                <button id={book.id} onClick={this.onDelete = this.onDelete.bind(this)}>delete</button>
+                            </td>
+                        </tr>
+                    )
+                })}
+                </tbody>
+            </table>
+            <button onClick={this.onNewBook}>Add Book</button>
         </div>
     }
 }
