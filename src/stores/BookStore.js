@@ -40,8 +40,12 @@ class BookStore {
         this._books.push(book);
     }
 
-    @action editBook(book,i){
-        this._books[i]=(book);
+    @action editBook(book, i){
+        this._books.splice(i, 1, book);
+    }
+
+    @action deleteBook(i){
+        this._books.slice(i, 1);
     }
 }
 
