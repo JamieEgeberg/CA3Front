@@ -32,6 +32,7 @@ ReactDOM.render((
       <Route path="home" component={Home} />
       <Route path="documentation" component={DocumentationPage} />
       <Route path="products" component={ProductsPage} />
+      <Route path="company" component={CompanyPage} />
       <Route path="books" component={BooksPage} />
       <Route path="users" component={UsersPage} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
