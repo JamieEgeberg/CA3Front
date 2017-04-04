@@ -18,8 +18,10 @@ const App = observer(class App extends Component {
                         </div>
                         <ul className="nav navbar-nav">
                             <li><Link to="/home">Home</Link></li>
-                            {auth.isUser ? <li><Link to="/user"> User demo </Link></li> : null}
-                            {auth.isAdmin ? <li><Link to="/admin"> Admin demo </Link></li> : null}
+                            <li><Link to="/documentation">Documentation</Link></li>
+                            <li><Link to="/products">Products</Link></li>
+                            {auth.isUser ? <li><Link to="/books"> Add/Edit Books </Link></li> : null}
+                            {auth.isAdmin ? <li><Link to="/users"> Add/Edit Users </Link></li> : null}
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li className="navbar-text" style={{color: "steelBlue"}}>{logInStatus}</li>

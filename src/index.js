@@ -1,15 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/index.css';
-import { hashHistory, Router, Route, IndexRoute } from 'react-router'
-import App from './pages/App';
-import Home from './pages/Home';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles/index.css";
+import {hashHistory, IndexRoute, Route, Router} from "react-router";
+import App from "./pages/App";
+import BooksPage from "./pages/BooksPage";
+import ProductsPage from "./pages/ProductsPage";
+import DocumentationPage from "./pages/DocumentationPage";
+import UsersPage from "./pages/UsersPage";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
-import About from "./pages/About";
-import UserPage from "./pages/UserPage";
-import AdminPage from "./pages/AdminPage";
-import Dashboard from "./pages/Dashboard"
+import Dashboard from "./pages/Dashboard";
 import auth from "./authorization/auth";
 
 
@@ -29,8 +30,10 @@ ReactDOM.render((
       <Route path="login" component={Login} />
       <Route path="logout" component={Logout} />
       <Route path="home" component={Home} />
-      <Route path="user" component={UserPage} />
-      <Route path="admin" component={AdminPage} />
+      <Route path="documentation" component={DocumentationPage} />
+      <Route path="products" component={ProductsPage} />
+      <Route path="books" component={BooksPage} />
+      <Route path="users" component={UsersPage} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
     </Route>
   </Router>
