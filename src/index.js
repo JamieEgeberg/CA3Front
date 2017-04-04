@@ -34,11 +34,11 @@ ReactDOM.render((
             <Route path="home" component={Home}/>
             <Route path="documentation" component={DocumentationPage}/>
             <Route path="products" component={ProductsPage}/>
-            <Route path="products/bookform" component={BookForm}/>
-            <Route path="products/bookform/:id" component={BookForm}/>
             <Route path="products/details/:id" component={Details} />
             <Route path="company" component={CompanyPage}/>
             <Route path="books" component={BooksPage}/>
+            <Route path="books/form" component={BookForm}/>
+            <Route path="books/form/:id" component={BookForm}/>
             <Route path="users" component={UsersPage}/>
             <Route path="dashboard" component={Dashboard} onEnter={requireAuth}/>
         </Route>

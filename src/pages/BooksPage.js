@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
 
-import {hashHistory, Link} from "react-router"
+import {hashHistory} from "react-router"
 import userData from "../stores/userStore";
 import bookStore from '../stores/BookStore';
 
@@ -22,21 +22,17 @@ class BooksPage extends Component {
 
     onAdd = (e) => {
         e.preventDefault();
-        hashHistory.push('/products/bookform');
+        hashHistory.push('/books/form');
     };
 
     onEdit = (e) => {
         e.preventDefault();
-        hashHistory.push('/products/bookform/' + e.target.id);
+        hashHistory.push('/books/form/' + e.target.id);
     };
 
-    onDelete =(e)=>{
+    onDelete = (e) => {
         e.preventDefault();
-        bookStore.books.forEach((book, i)=>{
-            if (Number(book.id) ===Number(e.target.id)){
-                bookStore.deleteBook(i);
-            }
-        })
+        bookStore.deleteBook(e.target.id);
     };
 
     render() {
@@ -68,7 +64,7 @@ class BooksPage extends Component {
                 })}
                 </tbody>
             </table>
-            <button onClick={this.onNewBook}>Add Book</button>
+            <button onClick={this.onAdd}>Add Book</button>
         </div>
     }
 }
