@@ -55,7 +55,7 @@ class BookStore {
     @action deleteBook(bid) {
         let id = Number(bid);
         this._books.forEach(action((b, i) => {
-            if (Number(b.id) === id) this._books.slice(i, 1);
+            if (Number(b.id) === id) this._books.splice(i, 1);
         }));
     }
 }
