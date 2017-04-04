@@ -1,6 +1,6 @@
 import React from "react";
-import {Link} from "react-router"
-import bookStore from "./BookStore";
+import {Link} from "react-router";
+import bookStore from '../stores/BookStore';
 
 export default class Details extends React.Component {
     constructor() {
@@ -16,7 +16,7 @@ export default class Details extends React.Component {
 
     render() {
         let id = this.props.params.id;
-        let book = this.props.route.books.filter((book, index) => {
+        let book = bookStore.books.filter((book, index) => {
             return index === Number(id);
         })[0];
         return (
@@ -26,8 +26,6 @@ export default class Details extends React.Component {
                 <h4>{book.moreInfo}</h4>
                 <br />
 
-                <button onClick={this.onEdit()}>edit</button>
-                <button>delete</button>
                 <Link to="/products">Products</Link>
             </div>
         );
