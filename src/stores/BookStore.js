@@ -46,12 +46,17 @@ class BookStore {
         this._books.push(book);
     }
 
-    @action editBook(book, i) {
-        this._books.splice(i, 1, book);
+    @action editBook(book) {
+        this._books.forEach((b, i) => {
+            if (b.id === book.id) this._books.splice(i, 1, book);
+        });
     }
 
-    @action deleteBook(i) {
-        this._books.slice(i, 1);
+    @action deleteBook(bid) {
+        let id = Number(bid);
+        this._books.forEach((b, i) => {
+            if (Number(b.id) === id) this._books.slice(i, 1);
+        });
     }
 }
 
