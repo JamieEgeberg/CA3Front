@@ -40,13 +40,15 @@ class BooksPage extends Component {
             <h2>New Book</h2>
             <table>
                 <thead>
-                <th>ID</th>
-                <th>Title</th>
-                <th>ISBN</th>
-                <th>Description</th>
-                <th>
-                    <button onClick={this.onAdd}>+</button>
-                </th>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>ISBN</th>
+                    <th>Description</th>
+                    <th>
+                        <button onClick={this.onAdd}>+</button>
+                    </th>
+                </tr>
                 </thead>
                 <tbody>
                 {bookStore.books.map((book, idx) => {
@@ -56,8 +58,14 @@ class BooksPage extends Component {
                             <td>{book.isbn}</td>
                             <td>{book.description}</td>
                             <td>
-                                <button id={book.id} onClick={this.onEdit = this.onEdit.bind(this)}>edit</button>
-                                <button id={book.id} onClick={this.onDelete = this.onDelete.bind(this)}>delete</button>
+                                <button id={book.id}
+                                        onClick={this.onEdit = this.onEdit.bind(this)}>
+                                    edit
+                                </button>
+                                <button id={book.id}
+                                        onClick={this.onDelete = this.onDelete.bind(this)}>
+                                    delete
+                                </button>
                             </td>
                         </tr>
                     )
