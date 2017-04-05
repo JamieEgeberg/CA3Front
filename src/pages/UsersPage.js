@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
-import userData from "../stores/adminStore";
+import userStore from "../stores/userStore";
 
 @observer
 class UsersPage extends Component {
@@ -10,27 +10,53 @@ class UsersPage extends Component {
          This will fetch data each time you navigate to this route
          Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
          */
-        userData.getData();
+        userStore.getData();
     }
 
     render() {
-        return (
-            <div>
-                <h2>Admins</h2>
-
-                <table>
-                    {userData.userList.map((u) => {
-                        return <tr>
-                            <td>{u.name}</td>
-                            <td>{u.mail}</td>
+        return (<div className="row">
+                <div className="col-xs-12">
+                    <h2>Manage Users</h2>
+                </div>
+                <div className="col-xs-12">
+                    <table className=" table table-bordered table-condensed table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Roles</th>
+                            <th width={78}>
+                                <button onClick={this.onAdd} className="btn btn-primary btn-sm btn-block">+</button>
+                            </th>
                         </tr>
-                    })}
-                </table>
-                {/*<p>This message is fetched from the server if you were properly logged in</p>*/}
-                {/*<div className="msgFromServer">*/}
-                {/*{userData.messageFromServer}*/}
-                {/*</div>*/}
-                {/*<h4 style={{color: "red"}}>{userData.errorMessage}</h4>*/}
+                        </thead>
+                        <tbody>
+                        {userStore.users.map((user, idx) => {
+                            return (<tr key={idx}>
+                                    <td>{user.id}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.roles.map((r) => {
+                                        return r.roleName + ", ";
+                                    })}</td>
+                                    <td>
+                                        <div className="btn-group">
+                                            <button id={user.id} className="btn btn-warning btn-sm"
+                                                    onClick={this.onEdit = this.onEdit.bind(this)}>
+                                                <span className="glyphicon glyphicon-pencil"/>
+                                            </button>
+                                            <button id={user.id} className="btn btn-danger btn-sm"
+                                                    onClick={this.onDelete = this.onDelete.bind(this)}>
+                                                <span className="glyphicon glyphicon-trash"/>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                        </tbody>
+                    </table>
+                    <button onClick={this.onAdd} className="btn btn-primary">Add Book</button>
+                </div>
             </div>
         )
     }
