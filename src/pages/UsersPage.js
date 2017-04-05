@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
-import userStore from "../stores/userStore";
+import userStore from "../stores/UserStore";
 import {hashHistory} from "react-router";
 
 @observer
