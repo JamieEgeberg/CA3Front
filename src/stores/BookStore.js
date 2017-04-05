@@ -72,6 +72,7 @@ class BookStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
+                    console.log(res);
                     this._books.push(res);
                 }
             })).catch(err => {
@@ -82,16 +83,70 @@ class BookStore {
     }
 
     @action editBook(book) {
-        this._books.forEach(action((b, i) => {
-            if (b.id === book.id) this._books.splice(i, 1, book);
-        }));
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        let errorCode = 200;
+        let options = fetchHelper.makeOptions("PUT", true);
+        options.body = JSON.stringify(book);
+        fetch(URL + "api/book", options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    console.log(res);
+                    this._books.forEach(action((b, i) => {
+                        if (b.id === res.id) {
+                            this._books.splice(i, 1, res);
+                        }
+                    }));
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        });
     }
 
     @action deleteBook(bid) {
         let id = Number(bid);
+
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        let errorCode = 200;
+        let options = fetchHelper.makeOptions("DELETE", true);
+
+        let t = {};
         this._books.forEach(action((b, i) => {
-            if (Number(b.id) === id) this._books.splice(i, 1);
+            if (Number(b.id) === id) {
+                t = {book: b, idx: i};
+            }
         }));
+
+        fetch(URL + "api/book/" + t.book.id, options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    console.log(res);
+                    this._books.splice(t.idx, 1);
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        });
     }
 }
 
