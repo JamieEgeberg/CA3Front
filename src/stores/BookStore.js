@@ -54,7 +54,32 @@ class BookStore {
     }
 
     @action addBook(book) {
-        this._books.push(book);
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        this._books = [];
+        let errorCode = 200;
+        const options = fetchHelper.makeOptions("POST", true);
+
+        let body = JSON.stringify(book);
+        fetch(URL + "api/book", options, body)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    this._books.push(res);
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+
     }
 
     @action editBook(book) {
