@@ -1,38 +1,49 @@
 //DataStore for this Demo
-import mobx, {computed, observable, action, useStrict} from "mobx";
+import {computed, observable, action, useStrict} from "mobx";
+import fetchHelper from "./fetchHelpers"
+const URL = require("../../package.json").serverURL;
 
 useStrict(true);
 class BookStore {
     @observable _books = [];
+    @observable messageFromServer = "";
+    @observable errorMessage = "";
 
     constructor() {
-        this._books.replace([
-            {
-                id: 1,
-                title: "How to Learn JavaScript - Vol 1",
-                isbn: "1234567891234",
-                description: "Study hard"
-            }
-            , {
-                id: 2,
-                title: "How to Learn ES6",
-                isbn: "1234567891234",
-                description: "Complete all exercises :-)"
-            }
-            , {
-                id: 3,
-                title: "How to Learn React",
-                isbn: "1234567891234",
-                description: "Complete all your CA's"
-            }
-            , {
-                id: 4,
-                title: "How to become a specialist in Computer Science - Vol 4",
-                isbn: "1234567891234",
-                description: "Don't drink beers, until Friday (after four)"
-            }
-        ])
+        this.getData();
     }
+
+    @action
+    setErrorMessage = (err) => {
+        this.errorMessage = err;
+    };
+
+    @action
+    getData = () => {
+        this.errorMessage = "";
+        this.messageFromServer = "";
+        this._books = [];
+        let errorCode = 200;
+        const options = fetchHelper.makeOptions("GET", true);
+        fetch(URL + "api/book", options)
+            .then((res) => {
+                if (res.status > 210 || !res.ok) {
+                    errorCode = res.status;
+                }
+                return res.json();
+            })
+            .then(action((res) => {  //Note the action wrapper to allow for useStrict
+                if (errorCode !== 200) {
+                    throw new Error(`${res.error.message} (${res.error.code})`);
+                }
+                else {
+                    this._books = res;
+                }
+            })).catch(err => {
+            //This is the only way (I have found) to verify server is not running
+            this.setErrorMessage(fetchHelper.addJustErrorMessage(err));
+        })
+    };
 
     @computed get bookCount() {
         return this._books.length;
