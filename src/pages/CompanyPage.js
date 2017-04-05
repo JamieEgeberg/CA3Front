@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
-import userData from "../stores/userStore";
 
 @ observer
 class CompanyPage extends Component {

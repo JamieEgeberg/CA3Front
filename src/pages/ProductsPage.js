@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {observer} from "mobx-react";
-import userData from "../stores/userStore";
-import {hashHistory, Link} from "react-router"
+import {Link} from "react-router";
 import bookStore from '../stores/BookStore';
 
 @ observer

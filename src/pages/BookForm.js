@@ -1,13 +1,10 @@
 /**
  * Created by Jamie on 04-04-2017.
  */
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {observer} from "mobx-react";
-import mobx, {action} from "mobx";
-
-import userData from "../stores/userStore";
 import bookStore from '../stores/BookStore';
-import {hashHistory} from "react-router"
+import {hashHistory} from "react-router";
 
 
 @observer
@@ -42,7 +39,6 @@ class BookForm extends Component {
     handleChange = (event) => {
         let book = this.state.book;
         let id = event.target.id;
-        console.log("Wup:" + id);
         if (id === "id") {
             book.id = event.target.value;
         } else if (id === "title") {
