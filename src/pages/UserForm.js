@@ -82,4 +82,4 @@ class UserForm extends Component {
         </div>
     }
 }
-export default UserForm;
+export default new UserForm();

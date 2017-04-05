@@ -7,6 +7,7 @@ import BooksPage from "./pages/BooksPage";
 import ProductsPage from "./pages/ProductsPage";
 import DocumentationPage from "./pages/DocumentationPage";
 import UsersPage from "./pages/UsersPage";
+import UserForm from "./pages/UserForm";
 import CompanyPage from "./pages/CompanyPage";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -40,6 +41,8 @@ ReactDOM.render((
             <Route path="books/form" component={BookForm}/>
             <Route path="books/form/:id" component={BookForm}/>
             <Route path="users" component={UsersPage}/>
+            <Route path="users/form" component={UserForm}/>
+            <Route path="users/form/:id" component={UserForm}/>
             <Route path="dashboard" component={Dashboard} onEnter={requireAuth}/>
         </Route>
     </Router>
