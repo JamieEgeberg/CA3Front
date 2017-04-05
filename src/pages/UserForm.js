@@ -15,7 +15,7 @@ class UserForm extends Component {
 
         let user = {
             id: -1,
-            name: "",
+            userName: "",
             roles: []
         };
         if (this.props.params.id) {
@@ -23,7 +23,7 @@ class UserForm extends Component {
             if (tempUsers.length === 1) {
                 user = {
                     id: tempUsers[0].id,
-                    name: tempUsers[0].name,
+                    userName: tempUsers[0].userName,
                     roles: tempUsers[0].roles
                 };
                 console.log(user);
@@ -39,8 +39,8 @@ class UserForm extends Component {
         let id = event.target.id;
         if (id === "id") {
             user.id = event.target.value;
-        } else if (id === "name") {
-            user.name = event.target.value;
+        } else if (id === "userName") {
+            user.userName = event.target.value;
         } else if (id === "roles") {
             user.roles = event.target.value;
         }
@@ -66,8 +66,8 @@ class UserForm extends Component {
                 <input id="id" type="hidden"
                        value={this.state.user.id}
                        onChange={this.handleChange}/><br/>
-                <input id="name" type="text" placeholder="Name"
-                       value={this.state.user.name}
+                <input id="userName" type="text" placeholder="Name"
+                       value={this.state.user.userName}
                        onChange={this.handleChange}/><br/>
                 <select name="roles" id="roles">
                     {userStore.roles.map((r) => <option value={r.roleName}>{r.roleName}</option>)}

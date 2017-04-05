@@ -50,7 +50,7 @@ class UsersPage extends Component {
                         {userStore.users.map((user, idx) => {
                             return (<tr key={idx}>
                                     <td>{user.id}</td>
-                                    <td>{user.name}</td>
+                                    <td>{user.userName}</td>
                                     <td>{user.roles.map((r) => {
                                         return r.roleName + ", ";
                                     })}</td>
