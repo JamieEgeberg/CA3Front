@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
 import userStore from "../stores/userStore";
+import {hashHistory} from "react-router";
 
 @observer
 class UsersPage extends Component {
@@ -12,6 +13,21 @@ class UsersPage extends Component {
          */
         userStore.getData();
     }
+
+    onAdd = (e) => {
+        e.preventDefault();
+        hashHistory.push('/users/form');
+    };
+
+    onEdit = (e) => {
+        e.preventDefault();
+        hashHistory.push('/users/form/' + e.target.id);
+    };
+
+    onDelete = (e) => {
+        e.preventDefault();
+        userStore.deleteUser(e.target.id);
+    };
 
     render() {
         return (<div className="row">
