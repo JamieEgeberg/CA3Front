@@ -50,7 +50,6 @@ class BookStore {
     }
 
     @computed get books() {
-        console.log(this._books);
         return this._books;
     }
 
@@ -61,7 +60,6 @@ class BookStore {
         let options = fetchHelper.makeOptions("POST", true);
 
         options.body = JSON.stringify(book);
-        console.log(options.body);
         fetch(URL + "api/book", options)
             .then((res) => {
                 if (res.status > 210 || !res.ok) {
@@ -74,7 +72,6 @@ class BookStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
-                    console.log(res);
                     this._books.push(res);
                 }
             })).catch(err => {
