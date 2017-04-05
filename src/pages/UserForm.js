@@ -18,6 +18,7 @@ class UserForm extends Component {
             userName: "",
             roles: []
         };
+
         if (this.props.params.id) {
             let tempUsers = userStore.users.filter((b) => Number(b.id) === Number(this.props.params.id));
             if (tempUsers.length === 1) {
@@ -82,4 +83,4 @@ class UserForm extends Component {
         </div>
     }
 }
-export default new UserForm();
+export default UserForm;
