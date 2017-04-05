@@ -55,7 +55,7 @@ class UsersPage extends Component {
                         })}
                         </tbody>
                     </table>
-                    <button onClick={this.onAdd} className="btn btn-primary">Add Book</button>
+                    <button onClick={this.onAdd} className="btn btn-primary">Add User</button>
                 </div>
             </div>
         )

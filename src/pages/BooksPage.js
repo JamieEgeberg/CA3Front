@@ -1,23 +1,18 @@
 import React, {Component} from 'react'
 import {observer} from "mobx-react";
-
 import {hashHistory} from "react-router";
 import bookStore from '../stores/BookStore';
 
 @observer
 class BooksPage extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            book: {
-                title: "",
-                info: "",
-                moreInfo: "",
-            }
-        };
+    componentWillMount() {
+        /*
+         This will fetch data each time you navigate to this route
+         Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
+         */
+        bookStore.getData();
     }
-
 
     onAdd = (e) => {
         e.preventDefault();
@@ -61,14 +56,14 @@ class BooksPage extends Component {
                                 <td>{book.description}</td>
                                 <td>
                                     <div className="btn-group">
-                                    <button id={book.id} className="btn btn-warning btn-sm"
-                                            onClick={this.onEdit = this.onEdit.bind(this)}>
-                                        <span className="glyphicon glyphicon-pencil"/>
-                                    </button>
-                                    <button id={book.id} className="btn btn-danger btn-sm"
-                                            onClick={this.onDelete = this.onDelete.bind(this)}>
-                                        <span className="glyphicon glyphicon-trash"/>
-                                    </button>
+                                        <button id={book.id} className="btn btn-warning btn-sm"
+                                                onClick={this.onEdit = this.onEdit.bind(this)}>
+                                            <span className="glyphicon glyphicon-pencil"/>
+                                        </button>
+                                        <button id={book.id} className="btn btn-danger btn-sm"
+                                                onClick={this.onDelete = this.onDelete.bind(this)}>
+                                            <span className="glyphicon glyphicon-trash"/>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
