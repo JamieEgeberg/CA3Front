@@ -37,7 +37,7 @@ class BooksPage extends Component {
     render() {
         return <div className="row">
             <div className="col-xs-12">
-                <h2>New Book</h2>
+                <h2>Manage Books</h2>
             </div>
             <div className="col-xs-12">
                 <table className=" table table-bordered table-condensed table-hover">
