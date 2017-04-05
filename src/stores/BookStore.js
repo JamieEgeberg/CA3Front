@@ -50,18 +50,19 @@ class BookStore {
     }
 
     @computed get books() {
+        console.log(this._books);
         return this._books;
     }
 
     @action addBook(book) {
         this.errorMessage = "";
         this.messageFromServer = "";
-        this._books = [];
         let errorCode = 200;
-        const options = fetchHelper.makeOptions("POST", true);
+        let options = fetchHelper.makeOptions("POST", true);
 
-        let body = JSON.stringify(book);
-        fetch(URL + "api/book", options, body)
+        options.body = JSON.stringify(book);
+        console.log(options.body);
+        fetch(URL + "api/book", options)
             .then((res) => {
                 if (res.status > 210 || !res.ok) {
                     errorCode = res.status;
@@ -73,6 +74,7 @@ class BookStore {
                     throw new Error(`${res.error.message} (${res.error.code})`);
                 }
                 else {
+                    console.log(res);
                     this._books.push(res);
                 }
             })).catch(err => {
