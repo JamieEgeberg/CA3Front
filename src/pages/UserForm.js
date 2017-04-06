@@ -49,7 +49,7 @@ class UserForm extends Component {
         } else if (id === "userName") {
             user.userName = event.target.value;
         } else if (id === "roles") {
-            user.roles = event.target.value;
+            user.roles = event.target.options.filter(o => o.selected).map(o => o.value);
         }
         this.setState({user: user});
     };
@@ -70,18 +70,17 @@ class UserForm extends Component {
         return <div>
             <h2>{this.props.params.id ? "Edit" : "Add"} user</h2>
             <form>
-                <input id="id" type="hidden"
-                       value={this.state.user.id}
-                       onChange={this.handleChange}/><br/>
-                <input id="userName" type="text" placeholder="Name"
-                       value={this.state.user.userName}
-                       onChange={this.handleChange}/><br/>
-                <select name="roles" id="roles">
-                    {userStore.roles.map((r) => <option value={r.roleName}>{r.roleName}</option>)}
-                </select>
-                <input id="roles" type="text" placeholder="Roles"
-                       value={this.state.user.roles}
-                       onChange={this.handleChange}/><br/>
+                <div className="form-group">
+                    <input id="userName" type="text" placeholder="Name" className="form-control"
+                           value={this.state.user.userName}
+                           onChange={this.handleChange}/>
+                </div>
+                <div className="form-group">
+                    <p>Choose roles: (hold Ctrl to select more)</p>
+                    <select name="roles" id="roles" multiple="multiple" className="form-control">
+                        {userStore.roles.map((r, idx) => <option key={idx} value={r.roleName}>{r.roleName}</option>)}
+                    </select>
+                </div>
                 <button onClick={this.saveUser}>save</button>
                 <p>{JSON.stringify(this.state.user)}</p>
             </form>
