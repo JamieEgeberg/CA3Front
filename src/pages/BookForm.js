@@ -67,22 +67,28 @@ class BookForm extends Component {
         return <div>
             <h2>{this.props.params.id ? "Edit" : "Add"} book</h2>
             <form>
-                <input id="id" type="hidden" placeholder="Title"
-                       value={this.state.book.id}
-                       onChange={this.handleChange}/><br/>
-                <input id="title" type="text" placeholder="Title"
-                       value={this.state.book.title}
-                       onChange={this.handleChange}/><br/>
-                <input id="isbn" type="text" placeholder="ISBN"
-                       value={this.state.book.isbn}
-                       onChange={this.handleChange}/><br/>
-                <input id="description" type="text" placeholder="Description"
-                       value={this.state.book.description}
-                       onChange={this.handleChange}/><br/>
+                <div className="form-group">
+                    <input id="id" type="hidden" placeholder="Title"
+                           value={this.state.book.id} className="form-control"
+                           onChange={this.handleChange}/></div>
+                <div className="form-group">
+                    <input id="title" type="text" placeholder="Title"
+                           value={this.state.book.title}
+                           className="form-control"
+                           onChange={this.handleChange}/></div>
+                <div className="form-group">
+                    <input id="isbn" type="text" placeholder="ISBN"
+                           value={this.state.book.isbn} className="form-control"
+                           onChange={this.handleChange}/></div>
+                <div className="form-group">
+                    <input id="description" type="text"
+                           placeholder="Description"
+                           value={this.state.book.description}
+                           className="form-control"
+                           onChange={this.handleChange}/></div>
                 <button onClick={this.saveBook}>save</button>
                 <p>{JSON.stringify(this.state.book)}</p>
             </form>
-
         </div>
     }
 }
