@@ -130,8 +130,8 @@ class UserStore {
                 }
                 else {
                     console.log(res);
-                    this._users.forEach(action((b, i) => {
-                        if (b.id === res.id) {
+                    this._users.forEach(action((u, i) => {
+                        if (u.userName === res.userName) {
                             this._users.splice(i, 1, res);
                         }
                     }));
@@ -143,8 +143,6 @@ class UserStore {
     }
 
     @action deleteUser(uid) {
-        let id = Number(uid);
-
         this.errorMessage = "";
         this.messageFromServer = "";
         let errorCode = 200;
@@ -152,12 +150,12 @@ class UserStore {
 
         let t = {};
         this._users.forEach(action((b, i) => {
-            if (Number(b.id) === id) {
+            if (b.userName === uid) {
                 t = {user: b, idx: i};
             }
         }));
 
-        fetch(URL + "api/user/" + t.user.id, options)
+        fetch(URL + "api/user/" + t.user.userName, options)
             .then((res) => {
                 if (res.status > 210 || !res.ok) {
                     errorCode = res.status;

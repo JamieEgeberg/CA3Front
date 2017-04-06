@@ -22,12 +22,12 @@ class UsersPage extends Component {
 
     onEdit = (e) => {
         e.preventDefault();
-        hashHistory.push('/users/form/' + e.target.id);
+        hashHistory.push('/users/form/' + e.currentTarget.id);
     };
 
     onDelete = (e) => {
         e.preventDefault();
-        userStore.deleteUser(e.target.id);
+        userStore.deleteUser(e.currentTarget.id);
     };
 
     render() {
@@ -37,13 +37,17 @@ class UsersPage extends Component {
                     Current users: {userStore.userCount}
                 </div>
                 <div className="col-xs-12">
-                    <table className=" table table-bordered table-condensed table-hover">
+                    <table
+                        className=" table table-bordered table-condensed table-hover">
                         <thead>
                         <tr>
                             <th>Name</th>
                             <th>Roles</th>
                             <th width={78}>
-                                <button onClick={this.onAdd} className="btn btn-primary btn-sm btn-block">+</button>
+                                <button onClick={this.onAdd}
+                                        className="btn btn-primary btn-sm btn-block">
+                                    +
+                                </button>
                             </th>
                         </tr>
                         </thead>
@@ -51,18 +55,26 @@ class UsersPage extends Component {
                         {userStore.users.map((user, idx) => {
                             return (<tr key={idx}>
                                     <td>{user.userName}</td>
-                                    <td>{user.roles.map((r) => {
-                                        return r.roleName + ", ";
+                                    <td>{user.roles.map((r, idx) => {
+                                        if(idx < user.roles.length - 1)
+                                            return r.roleName + ", ";
+                                        else return r.roleName;
                                     })}</td>
                                     <td>
                                         <div className="btn-group">
-                                            <button id={user.id} className="btn btn-warning btn-sm"
+                                            <button id={user.userName}
+                                                    type="button"
+                                                    className="btn btn-warning btn-sm"
                                                     onClick={this.onEdit = this.onEdit.bind(this)}>
-                                                <span className="glyphicon glyphicon-pencil"/>
+                                                <span
+                                                    className="glyphicon glyphicon-pencil"> </span>
                                             </button>
-                                            <button id={user.id} className="btn btn-danger btn-sm"
+                                            <button id={user.userName}
+                                                    type="button"
+                                                    className="btn btn-danger btn-sm"
                                                     onClick={this.onDelete = this.onDelete.bind(this)}>
-                                                <span className="glyphicon glyphicon-trash"/>
+                                                <span
+                                                    className="glyphicon glyphicon-trash"> </span>
                                             </button>
                                         </div>
                                     </td>
@@ -71,7 +83,9 @@ class UsersPage extends Component {
                         })}
                         </tbody>
                     </table>
-                    <button onClick={this.onAdd} className="btn btn-primary">Add User</button>
+                    <button onClick={this.onAdd} className="btn btn-primary">Add
+                        User
+                    </button>
                 </div>
             </div>
         )

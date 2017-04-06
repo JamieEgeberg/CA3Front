@@ -13,6 +13,7 @@ class UserForm extends Component {
          This will fetch data each time you navigate to this route
          Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
          */
+        userStore.getData();
         userStore.getRoles();
     }
 
@@ -20,46 +21,48 @@ class UserForm extends Component {
         super(props);
 
         let user = {
-            id: -1,
             userName: "",
             roles: []
         };
 
         if (this.props.params.id) {
-            let tempUsers = userStore.users.filter((b) => Number(b.id) === Number(this.props.params.id));
+            let tempUsers = userStore.users.filter((b) => b.userName === this.props.params.id);
             if (tempUsers.length === 1) {
                 user = {
-                    id: tempUsers[0].id,
                     userName: tempUsers[0].userName,
                     roles: tempUsers[0].roles
                 };
                 console.log(user);
             }
         }
+        user.passwordHash = "";
         this.state = {
+            edit: !!this.props.params.id,
             user: user
         };
     }
 
     handleChange = (event) => {
+        console.log(this.state.edit);
         let user = this.state.user;
         let id = event.target.id;
-        if (id === "id") {
-            user.id = event.target.value;
-        } else if (id === "userName") {
+        if (id === "userName") {
             user.userName = event.target.value;
+        } else if (id === "password") {
+            user.passwordHash = event.target.value;
         } else if (id === "roles") {
-            user.roles = event.target.options.filter(o => o.selected).map(o => o.value);
+            user.roles = [].filter.call(event.target.options, o => o.selected)
+                .map(o => {
+                    return {roleName: o.value};
+                });
         }
         this.setState({user: user});
     };
 
     saveUser = (event) => {
-        if (this.state.user.id === -1) {
-            let user = this.state.user;
-            delete user.id;
-            userStore.addUser(user);
-        } else if (this.state.user.id > 0) {
+        if (!this.state.edit) {
+            userStore.addUser(this.state.user);
+        } else {
             userStore.editUser(this.state.user);
         }
         event.preventDefault();
@@ -70,15 +73,38 @@ class UserForm extends Component {
         return <div>
             <h2>{this.props.params.id ? "Edit" : "Add"} user</h2>
             <form>
-                <div className="form-group">
-                    <input id="userName" type="text" placeholder="Name" className="form-control"
-                           value={this.state.user.userName}
-                           onChange={this.handleChange}/>
-                </div>
+                {this.state.edit ? (<h4>{this.state.user.userName}</h4>) : ""}
+                {this.state.edit || (<div>
+                    <div className="form-group">
+                        <input id="userName" type="text" placeholder="Name"
+                               className="form-control"
+                               value={this.state.user.userName}
+                               onChange={this.handleChange}/>
+                    </div>
+                    <div className="form-group">
+                        <input id="password" type="password"
+                               placeholder="Password"
+                               className="form-control"
+                               value={this.state.user.passwordHash}
+                               onChange={this.handleChange}/>
+                    </div>
+                </div>)}
                 <div className="form-group">
                     <p>Choose roles: (hold Ctrl to select more)</p>
-                    <select name="roles" id="roles" multiple="multiple" className="form-control">
-                        {userStore.roles.map((r, idx) => <option key={idx} value={r.roleName}>{r.roleName}</option>)}
+                    <select name="roles" id="roles" multiple="multiple"
+                            className="form-control"
+                            onChange={this.handleChange}>
+                        {userStore.roles.map((r, idx) => {
+                            if (this.state.user.roles
+                                    .filter(r2 => r2.roleName === r.roleName).length === 1) {
+                                return <option key={idx} selected
+                                               value={r.roleName}>{r.roleName}</option>;
+                            } else {
+                                return <option key={idx}
+                                               value={r.roleName}>{r.roleName}</option>;
+                            }
+
+                        })}
                     </select>
                 </div>
                 <button onClick={this.saveUser}>save</button>

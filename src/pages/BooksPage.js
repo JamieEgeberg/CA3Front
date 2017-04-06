@@ -21,12 +21,12 @@ class BooksPage extends Component {
 
     onEdit = (e) => {
         e.preventDefault();
-        hashHistory.push('/books/form/' + e.target.id);
+        hashHistory.push('/books/form/' + e.currentTarget.id);
     };
 
     onDelete = (e) => {
         e.preventDefault();
-        bookStore.deleteBook(e.target.id);
+        bookStore.deleteBook(e.currentTarget.id);
     };
 
     render() {
