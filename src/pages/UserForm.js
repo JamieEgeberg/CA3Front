@@ -8,6 +8,13 @@ import {hashHistory} from "react-router";
 
 @observer
 class UserForm extends Component {
+    componentWillMount() {
+        /*
+         This will fetch data each time you navigate to this route
+         Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
+         */
+        userStore.getRoles();
+    }
 
     constructor(props) {
         super(props);
