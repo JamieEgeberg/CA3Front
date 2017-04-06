@@ -6,7 +6,6 @@ import {observer} from "mobx-react";
 import userStore from '../stores/UserStore';
 import {hashHistory} from "react-router";
 
-
 @observer
 class UserForm extends Component {
 

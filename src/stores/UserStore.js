@@ -11,6 +11,7 @@ class UserStore {
 
     constructor() {
         this.getData();
+        this.getRoles();
     }
 
     @action
