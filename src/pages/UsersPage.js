@@ -12,6 +12,7 @@ class UsersPage extends Component {
          Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
          */
         userStore.getData();
+        userStore.getRoles();
     }
 
     onAdd = (e) => {
@@ -33,12 +34,12 @@ class UsersPage extends Component {
         return (<div className="row">
                 <div className="col-xs-12">
                     <h2>Manage Users</h2>
+                    Current users: {userStore.userCount}
                 </div>
                 <div className="col-xs-12">
                     <table className=" table table-bordered table-condensed table-hover">
                         <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
                             <th>Roles</th>
                             <th width={78}>
@@ -49,7 +50,6 @@ class UsersPage extends Component {
                         <tbody>
                         {userStore.users.map((user, idx) => {
                             return (<tr key={idx}>
-                                    <td>{user.id}</td>
                                     <td>{user.userName}</td>
                                     <td>{user.roles.map((r) => {
                                         return r.roleName + ", ";
