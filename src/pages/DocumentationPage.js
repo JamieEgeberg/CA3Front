@@ -2,10 +2,7 @@
  * Created by Jamie on 04-04-2017.
  */
 import React, {Component} from 'react'
-import {observer} from "mobx-react";
-import userData from "../stores/adminStore";
 
-@observer
 class DocumentationPage extends Component {
     render() {
         return (
@@ -53,8 +50,6 @@ class DocumentationPage extends Component {
                     and the link in this part points to a slide rather than an actual project. </p>
                 <p> The 'light' version was a good start, and could definitely be expanded further for the next time the
                     course is held.</p>
-
-
             </div>
         )
     }
