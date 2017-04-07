@@ -7,33 +7,26 @@ import userData from "../stores/adminStore";
 
 @observer
 class DocumentationPage extends Component {
-
-    componentWillMount() {
-        /*
-         This will fetch data each time you navigate to this route
-         Move to constructor, if only required once, or add "logic" to determine when data should be "refetched"
-         */
-        userData.getData();
-    }
-
     render() {
         return (
             <div>
-                <h2>Admins</h2>
+                <h2>Documentation</h2>
+                <ul>
+                    <li><a href="https://github.com/JamieEgeberg/CA3Front">CA3 Frontend</a>
+                    </li>
+                    <li><a href="https://github.com/JamieEgeberg/CA3Back">CA3 Backend</a></li>
+                </ul>
 
-                <table>
-                    {userData.userList.map((u) => {
-                        return <tr>
-                            <td>{u.name}</td>
-                            <td>{u.mail}</td>
-                        </tr>
-                    })}
-                </table>
-                {/*<p>This message is fetched from the server if you were properly logged in</p>*/}
-                {/*<div className="msgFromServer">*/}
-                {/*{userData.messageFromServer}*/}
-                {/*</div>*/}
-                {/*<h4 style={{color: "red"}}>{userData.errorMessage}</h4>*/}
+                <h3>All Additional Documentation we find relevant</h3>
+
+                <h4>Further Improvements that could have been done</h4>
+                <ul>
+                    <li>Test that new user names are unique, when adding new users since the username is the Identifier</li>
+                </ul>
+
+                <h4>Integration Test Report</h4>
+                <img src="IntegrationTests.PNG" alt="Screenshot of Integration Test results"/>
+                <p>As you can see above our integration tests work</p>
             </div>
         )
     }
