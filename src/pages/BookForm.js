@@ -79,7 +79,7 @@ class BookForm extends Component {
                 <div className="form-group">
                     <input id="isbn" type="text" placeholder="ISBN"
                            value={this.state.book.isbn} className="form-control"
-                           onChange={this.handleChange}/></div>
+                           onChange={this.handleChange} maxLength="13"/></div>
                 <div className="form-group">
                     <input id="description" type="text"
                            placeholder="Description"
